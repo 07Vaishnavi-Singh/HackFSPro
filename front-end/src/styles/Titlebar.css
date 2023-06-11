@@ -1,0 +1,120 @@
+* {
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap");
+
+@font-face {
+  font-family: "Nexa";
+  src: url("../fonts/Nexa-Trial-Regular.otf") format("truetype");
+  
+}
+
+#titlebar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 72px;
+  margin-left: 3vw;
+  margin-top: 4.29vh;
+  margin-right: 3vw;
+  background: rgba(175, 98, 210, 0.12);
+  border: 1px solid rgba(175, 98, 210, 0.3);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+#logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+#logo {
+  font-family: "Orbitron", sans-serif;
+  margin-left: 2vw;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 72px;
+  background: linear-gradient(97.16deg, #f86cf8 12.04%, #64cef5 81.84%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+}
+
+#navlink-list {
+  display: flex;
+  background: transparent;
+  
+}
+
+.navlink {
+  padding: 10px;
+  margin: 5px;
+  margin-left:4vw;
+  font-family: "Nexa", sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 16px;
+  line-height: 150%;
+  background-color: transparent;
+  color: #ececec;
+  background: none;
+  
+}
+
+.navlink:hover {
+  font-size: 21px;
+  transform: scale(1.1);
+  transition: transform 0.5s ease-in-out;
+}
+
+.navlink.active {
+  border-bottom: 3px solid #aa14f0;
+  border-length: 80%;
+}
+
+#login-container {
+  background: linear-gradient(
+      0deg,
+      rgba(170, 20, 240, 0.6),
+      rgba(170, 20, 240, 0.6)
+    ),
+    linear-gradient(
+      180.71deg,
+      rgba(170, 20, 240, 0.441) -97.37%,
+      rgba(170, 20, 240, 0.009375) 99.37%,
+      rgba(217, 217, 217, 0) 99.38%,
+      rgba(217, 217, 217, 0) 99.38%
+    );
+  border: 1px solid #aa14f0;
+  border-radius: 14px;
+  color: #d9d9d9;
+  font-family: "Nexa";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.14em;
+  width: 15%;
+  margin: 1vw;
+  height: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease; /* Add transition properties */
+}
+
+#login-container:hover {
+  background-color: #aa14f0;
+  transform: scale(1.1); /* Increase the size on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+}
