@@ -1,0 +1,77 @@
+#hero-page {
+  height: 324px;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  margin-top: 9vh;
+  margin-bottom: 30vh;
+}
+
+#hero-page-heading {
+  font-family: "Orbitron";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(97.16deg, #f86cf8 12.04%, #64cef5 81.84%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  height: auto;
+}
+
+#hero-page-subheading {
+  font-family: "Nexa";
+  font-style: normal;
+  font-weight: 100;
+  font-size: 24px;
+  line-height: 150%;
+  color: #ececec;
+  margin-top: 3vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hero-page-button {
+  font-family: "Nexa";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 20px;
+  line-height: 30px;
+  letter-spacing: 0.14em;
+  background: linear-gradient(
+      0deg,
+      rgba(170, 20, 240, 0.6),
+      rgba(170, 20, 240, 0.6)
+    ),
+    linear-gradient(
+      180.71deg,
+      rgba(170, 20, 240, 0.441) -97.37%,
+      rgba(170, 20, 240, 0.009375) 99.37%,
+      rgba(217, 217, 217, 0) 99.38%,
+      rgba(217, 217, 217, 0) 99.38%
+    );
+  border: 1px solid #bb77db;
+  border-radius: 14px;
+  width: 15vw;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 7vh;
+  color: #d9d9d9;
+  transition: transform 0.3s ease, background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+#hero-page-button:hover {
+  background-color: #aa14f0;
+  transform: scale(1.1); /* Increase the size on hover */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow on hover */
+}
+
