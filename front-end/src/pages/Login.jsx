@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Titlebar from "../Components/Titlebar";
 import Heropage from "../Components/Heropage";
+import Carousel from "../Components/Features";
 import "../styles/App.css";
 import metamask from "../images/metamask.png";
 import WalletConnect from "../images/walletconnect.png";
@@ -24,11 +25,11 @@ function Login() {
         </p>
         <div id="button-container">
           <button className="wallet-button">
-            <img src={metamask} alt="My Image" /> <p>Metamask</p>
+            <img src={metamask} alt="metamask" /> <p>Metamask</p>
           </button>
           <br />
           <button className="wallet-button">
-            <img src={WalletConnect} alt="My Image" />
+            <img src={WalletConnect} alt="wallet" />
             <p> Wallet Connect</p>
           </button>
         </div>
@@ -42,6 +43,10 @@ function Login() {
 
       {showWalletConnection && <WalletConnection />}
       {!showWalletConnection && <Heropage onButtonClick={handleButtonClick} />}
+
+      <div id="Features">
+        <Carousel />
+      </div>
     </div>
   );
 }

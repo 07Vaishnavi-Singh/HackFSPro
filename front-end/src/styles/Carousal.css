@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+
+.carousel-container {
+  display: flex;
+  width: 90vw;
+  justify-content: space-between;
+  margin: auto;
+}
+
+.carousel {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+}
+
+.card {
+  height: 50vh;
+  width: 25vw;
+  background: none;
+  border-radius: 0px 25px 0px 25px;
+  border: 3px solid #bd30ff;
+}
+
+.card img {
+  height: auto;
+  width: 90%;
+  display: flex;
+  border-radius: 0px 25px 0px 25px;
+  margin: auto;
+  margin-top: 2vh;
+}
+
+.button-carousel {
+  width: 3vw;
+  font-family: "Orbitron", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 72px;
+  background: none;
+  color: #bd30ff;
+  border: 0;
+}
+.card p {
+  font-family: "Orbitron", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  width: 90%;
+  line-height: 72px;
+  background: none;
+  color: #ffffff;
+
+  border: 0;
+  text-align: left;
+  padding-left: 1.5vw;
+}
+
+.card h6 {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  padding-left: 1.5vw;
+  padding-right: 1.5vw;
+  color: #ffffff;
+}
+#carousel-topic{
+font-family: Orbitron;
+font-size: 32px;
+font-weight: 600;
+line-height: 40px;
+letter-spacing: 0.14em;
+text-align: left;
+color: #FFFFFF;
+display: flex;
+justify-content: center;
+
+}
+
+#carousel-topic p{
+    border-bottom:3px solid #FFFFFF;
+    width:min-content;
+    padding-bottom: 2vh;
+    margin-bottom: 10vh;
+    padding-top: 10vh;
+    text-align: center;
+}
