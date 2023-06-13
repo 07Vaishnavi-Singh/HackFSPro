@@ -39,7 +39,7 @@ function Login() {
 
   return (
     <div>
-      <Titlebar onButtonClick={handleButtonClick} />
+      <Titlebar id="home" onButtonClick={handleButtonClick} />
 
       {showWalletConnection && <WalletConnection />}
       {!showWalletConnection && <Heropage onButtonClick={handleButtonClick} />}

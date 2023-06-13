@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import metamask from "../images/metamask.png";
-import WalletConnect from "../images/walletconnect.png";
 import image1 from "../images/image1.jpeg";
 import image2 from "../images/image2.jpeg";
 import image3 from "../images/image3.jpeg";
@@ -71,7 +70,7 @@ const Carousel = () => {
         <div className="carousel">
           {visibleCards.map((card, index) => (
             <div className="card" key={index}>
-              <img src={card.image} />
+              <img src={card.image} alt="website"/>
               <p>{card.topic}</p>
               <h6>{card.quote}</h6>
             </div>
