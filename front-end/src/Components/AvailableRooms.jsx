@@ -4,7 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SwipeableViews from 'react-swipeable-views';
 import "../styles/AvailableRooms.css"
 
-function AvailableRooms() {
+function AvailableRooms({onButtonClick1}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -32,7 +32,7 @@ function AvailableRooms() {
       )}
       <div id="button-container">
         <button id="refresh">Refresh</button>
-        <button id="create-new">Create new</button>
+        <button id="create-new" onClick={onButtonClick1}>Create new</button>
       </div>
     </div>
   );
@@ -56,6 +56,7 @@ const styles = {
     border: '1.11168px solid #AA14F0',
     borderRadius: '8.8934px',
     padding: '20px',
+    clipPath: 'polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%)',
   },
 };
 

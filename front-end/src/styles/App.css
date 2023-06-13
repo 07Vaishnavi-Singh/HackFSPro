@@ -121,3 +121,9 @@
 #dashboard-page{
   height: 280vh;
 }
+
+#dashboard-container-1{
+  height: 100vh;
+  margin: auto;
+  background-color: black !important;
+}
