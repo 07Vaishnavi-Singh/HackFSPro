@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
+import Loading from './pages/Loading';
 
-import Login from './pages/Login';
-
-class App extends Component {
-  render() {
-    return (
-      <Login />
-    );
-  }
+function App() {
+  return (
+    <div className="App">
+      <Loading />
+    </div>
+  );
 }
+
+
 
 export default App;
