@@ -112,3 +112,12 @@
 #Features{
   height: 100vh;
 }
+
+#dashboard-container-1{
+  height: 100vh;
+  margin: auto;
+}
+
+#dashboard-page{
+  height: 280vh;
+}

@@ -10,8 +10,9 @@ function Loading() {
     useEffect(() => {
       const checkUserCookie = () => {
         const userCookie = localStorage.getItem('user');
-        const isAuthenticated = !userCookie;
+        const isAuthenticated = !!userCookie;
         setIsLoggedIn(isAuthenticated);
+        console.log(isAuthenticated);
       };
   
       checkUserCookie();
@@ -20,7 +21,7 @@ function Loading() {
 
     return <div>
         {isLoggedIn ? (
-        <Login />
+       <Login />
       ) : (
         <RoomCreation />
       )}
