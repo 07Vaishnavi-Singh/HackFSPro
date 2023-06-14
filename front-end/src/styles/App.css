@@ -253,3 +253,12 @@ html {
   background-color: transparent !important;
 }
 
+#About{
+  height: 100vh;
+  
+  background-image: url(../images/slide3.png) !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover;
+}
+

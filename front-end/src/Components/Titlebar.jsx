@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/Titlebar.css';
 
 // Define a functional component
-function Titlebar({onButtonClick}) {
+function Titlebar({onButtonClick2,onButtonClick}) {
 
 
 
@@ -22,7 +22,7 @@ document.getElementById("login-container").innerHTML = "Connected";
 }catch{
 
 
-alert("Not able to connecct to metamask");
+alert("Not able to connect to metamask");
 
 
 }
@@ -45,7 +45,7 @@ else{
       <div id='navlink-list'>
         <div className='navlink active' >Home</div>
         <div className='navlink' onClick={onButtonClick}>Features</div>
-        <div className='navlink'>About Us</div>
+        <div className='navlink' onClick={onButtonClick2}>About Us</div>
       </div>
       <div id="login-container" onClick={addingWallet}>
         Connect Wallet

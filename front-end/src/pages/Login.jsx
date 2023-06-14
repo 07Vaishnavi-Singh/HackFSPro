@@ -3,12 +3,14 @@ import Titlebar from "../Components/Titlebar";
 import Heropage from "../Components/Heropage";
 import Carousel from "../Components/Features";
 import metamask from "../images/metamask.png";
+import Aboutus from "../Components/Aboutus";
 import WalletConnect from "../images/walletconnect.png";
 import "../styles/App.css";
 
 function Login() {
   const [showWalletConnection, setShowWalletConnection] = useState(false);
   const featuresRef = useRef(null);
+  const aboutRef = useRef(null);
 
   const handleButtonClick = () => {
     setShowWalletConnection(true);
@@ -17,8 +19,6 @@ function Login() {
   async function handleCloseButtonClickMetamask(){
 
     console.log("requesting accounts...");
-    
-    // if metamask exists
     
     if(window.ethereum){
       console.log("detected");
@@ -37,7 +37,7 @@ function Login() {
     }
     }
     else{
-      alert("please install metmask");
+      alert("please install metamask");
     }
     }
     
@@ -65,13 +65,16 @@ function Login() {
   const scrollToFeatures = () => {
     featuresRef.current.scrollIntoView({ behavior: "smooth" });
   };
+  const scrollToAboutUs = () => {
+    aboutRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <div id="blah">
       <div id="slide1">
         <div id="slide1-bgm">
           <div id="gradient">
-            <Titlebar id="home" onButtonClick={scrollToFeatures} />
+            <Titlebar id="home" onButtonClick={scrollToFeatures} onButtonClick2={scrollToAboutUs}/>
 
             {showWalletConnection && <WalletConnection />}
             {!showWalletConnection && (
@@ -83,6 +86,9 @@ function Login() {
 
       <div id="Features" ref={featuresRef}>
         <Carousel />
+      </div>
+      <div id="About" ref={aboutRef}>
+        <Aboutus />
       </div>
     </div>
   );
