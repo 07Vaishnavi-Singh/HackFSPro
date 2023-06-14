@@ -61,7 +61,7 @@ const Carousel = () => {
   const visibleCards = getVisibleCards();
 
   return (
-    <div>
+    <div id="main-features-container">
       <div id="carousel-topic"><p>Features</p></div>
       <div className="carousel-container">
         <button className="button-carousel" onClick={handlePrevious}>

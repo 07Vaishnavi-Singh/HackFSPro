@@ -10,7 +10,6 @@ async function addingWallet(){
 
 console.log("requesting accounts...");
 
-// if metamask exists
 
 if(window.ethereum){
   console.log("detected");
@@ -44,8 +43,8 @@ else{
         <div id='logo'>Archangel</div>
       </div>
       <div id='navlink-list'>
-        <div className='navlink active'>Home</div>
-        <div className='navlink'>Features</div>
+        <div className='navlink active' >Home</div>
+        <div className='navlink' onClick={onButtonClick}>Features</div>
         <div className='navlink'>About Us</div>
       </div>
       <div id="login-container" onClick={addingWallet}>

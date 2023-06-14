@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Titlebar from "../Components/Titlebar";
 import Heropage from "../Components/Heropage";
 import Carousel from "../Components/Features";
-import "../styles/App.css";
 import metamask from "../images/metamask.png";
 import WalletConnect from "../images/walletconnect.png";
+import "../styles/App.css";
 
 function Login() {
   const [showWalletConnection, setShowWalletConnection] = useState(false);
+  const featuresRef = useRef(null);
 
   const handleButtonClick = () => {
     setShowWalletConnection(true);
@@ -37,14 +38,26 @@ function Login() {
     );
   }
 
+  const scrollToFeatures = () => {
+    featuresRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <div>
-      <Titlebar id="home" onButtonClick={handleButtonClick} />
+    <div id="blah">
+      <div id="slide1">
+        <div id="slide1-bgm">
+          <div id="gradient">
+            <Titlebar id="home" onButtonClick={scrollToFeatures} />
 
-      {showWalletConnection && <WalletConnection />}
-      {!showWalletConnection && <Heropage onButtonClick={handleButtonClick} />}
+            {showWalletConnection && <WalletConnection />}
+            {!showWalletConnection && (
+              <Heropage onButtonClick={handleButtonClick} />
+            )}
+          </div>
+        </div>
+      </div>
 
-      <div id="Features">
+      <div id="Features" ref={featuresRef}>
         <Carousel />
       </div>
     </div>

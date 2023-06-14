@@ -28,9 +28,9 @@
 }
 
 * {
-  margin: 0;
+  margin: 0 ;
   padding: 0;
-  
+  background: linear-gradient(180deg, #010208 16.39%, #010206 20.51%, #040008 24.79%, #010101 30.46%, #010101 34.11%, #010101 36.21%, #010101 100%);
   z-index: 0;
 }
 
@@ -156,6 +156,10 @@
   background: none;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 .wallet-button p {
   font-family: "Nexa";
   font-style: normal;
@@ -185,7 +189,9 @@
 }
 
 #Features{
-  height: 100vh;
+  height: 70vh;
+  
+  background-color: none;
 }
 
 #dashboard-container-1{
@@ -202,3 +208,48 @@
   margin: auto;
   background-color: black !important;
 }
+
+#slide1{
+  background: linear-gradient(180deg, rgba(170, 20, 240, 0.198) 0%, rgba(170, 20, 240, 0.00625) 99.99%, rgba(217, 217, 217, 0) 100%) !important;
+  background-image: url(../images/bgmm.png) !important;
+  height: 100vh;
+  margin-top: 0 !important;
+  padding-top: 2vh;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  
+}
+
+#slide1 *{
+  opacity: 1;
+}
+
+
+#slide1-bgm{
+  
+  background-image: url(../images/Group.png) !important;
+  
+  height: 110vh;
+  margin-top: 0 !important;
+  padding-top: 0;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  
+  
+}
+
+#gradient{
+  
+  background: linear-gradient(180deg, rgba(170, 20, 240, 0.198) 0%, rgba(170, 20, 240, 0.00625) 99.99%, rgba(217, 217, 217, 0) 100%) !important;
+  margin-top: 0 !important;
+  height: 120vh;
+  padding-top: 3vh;
+}
+
+
+#blah{
+  background-color: transparent !important;
+}
+

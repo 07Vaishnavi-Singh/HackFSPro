@@ -1,9 +1,8 @@
 * {
   margin: 0;
   padding: 0;
-  background-color: black;
+  /* background-color: black; */
   z-index: 0;
-  
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap");
@@ -11,7 +10,6 @@
 @font-face {
   font-family: "Nexa";
   src: url("../fonts/Nexa-Trial-Regular.otf") format("truetype");
-  
 }
 
 #titlebar {
@@ -23,10 +21,13 @@
   margin-left: 3vw;
   margin-top: 4.29vh;
   margin-right: 3vw;
-  background: rgba(175, 98, 210, 0.12);
-  border: 1px solid rgba(175, 98, 210, 0.3);
-  border-radius: 5px;
-  box-sizing: border-box;
+  background: linear-gradient(0deg, rgba(175, 98, 210, 0.3), rgba(175, 98, 210, 0.3)),
+  linear-gradient(0deg, rgba(175, 98, 210, 0.12), rgba(175, 98, 210, 0.12)) !important;
+  
+  box-sizing: border-box !important;
+  
+  border: 1px solid rgba(175, 98, 210, 0.3) !important;
+  border-radius: 5px !important;
 }
 
 #logo-container {
@@ -54,13 +55,12 @@
 #navlink-list {
   display: flex;
   background: transparent;
-  
 }
 
 .navlink {
   padding: 10px;
   margin: 5px;
-  margin-left:4vw;
+  margin-left: 4vw;
   font-family: "Nexa", sans-serif;
   font-style: normal;
   font-weight: 100;
@@ -69,8 +69,6 @@
   background-color: transparent;
   color: #ececec;
   background: none;
-
-  
 }
 
 .navlink:hover {
@@ -85,7 +83,6 @@
 }
 
 #login-container {
-  
   background: linear-gradient(
       0deg,
       rgba(170, 20, 240, 0.6),

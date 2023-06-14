@@ -3,8 +3,13 @@
   justify-content: space-between;
   display: flex;
   flex-direction: column;
-  margin-top: 9vh;
+  margin-top: 15vh;
   margin-bottom: 30vh;
+  background: none !important;
+}
+
+#hero-page *{
+  background: none ;
 }
 
 #hero-page-heading {
@@ -21,6 +26,7 @@
   background-clip: text;
   text-fill-color: transparent;
   height: auto;
+ 
 }
 
 #hero-page-subheading {
