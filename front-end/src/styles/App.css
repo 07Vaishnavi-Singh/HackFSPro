@@ -27,6 +27,81 @@
   }
 }
 
+* {
+  margin: 0;
+  padding: 0;
+  
+  z-index: 0;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap");
+
+@font-face {
+  font-family: "Nexa";
+  src: url("../fonts/Nexa-Trial-Regular.otf") format("truetype");
+}
+
+#background {
+  height: 100vh;
+  width: 100vw;
+  background-color: #22011f !important;
+}
+
+#fire2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  z-index: 100;
+}
+
+#fire_border {
+  height: 98vh;
+  width: 98vw;
+  animation: glow2 0.9s ease-in-out infinite alternate;
+  margin: auto;
+  margin-top: 1vh !important;
+  box-shadow: 0 0 10px 2px #aa14f0;
+  background-color: black !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#fire {
+  border-radius: 100%;
+  padding: 30px;
+  background-color: black !important;
+  box-shadow: 0 0 10px 2px #aa14f0;
+  animation: glow 0.9s ease-in-out infinite alternate;
+  height: 25vh;
+  width: auto;
+  z-index: 1200;
+  filter: drop-shadow(0 0 2px #aa14f0) drop-shadow(0 0 15px #aa14f0) ;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px 2px #aa14f0;
+  }
+
+  to {
+    box-shadow: 0 0 30px 5px #840584; /* Updated color */
+  }
+}
+
+@keyframes glow2 {
+  from {
+    box-shadow: 0 0 10px 2px #77269d;
+  }
+
+  to {
+    box-shadow: 0 0 30px 5px #d30fff; /* Updated color */
+  }
+}
+
+
 #wallet-container {
   height: auto;
   width: 40vw;
