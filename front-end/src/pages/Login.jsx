@@ -13,18 +13,42 @@ function Login() {
     setShowWalletConnection(true);
   };
 
-  const handleCloseButtonClick = () => {
-    setShowWalletConnection(false);
-  };
+  async function handleCloseButtonClickMetamask(){
+
+    console.log("requesting accounts...");
+    
+    // if metamask exists
+    
+    if(window.ethereum){
+      console.log("detected");
+    try{
+    const accounts = await window.ethereum.request({
+      method : "eth_requestAccounts",
+    });
+    console.log(accounts);
+    document.getElementById("login-container").innerHTML = "Connected";
+    }catch{
+    
+    
+    alert("Not able to connecct to metamask");
+    
+    
+    }
+    }
+    else{
+      alert("please install metmask");
+    }
+    }
+    
 
   function WalletConnection() {
     return (
       <div id="wallet-container">
-        <p id="close-button" onClick={handleCloseButtonClick}>
+        <p id="close-button" onClick={handleButtonClick}>
           x
         </p>
         <div id="button-container">
-          <button className="wallet-button">
+          <button className="wallet-button" onClick={handleCloseButtonClickMetamask}>
             <img src={metamask} alt="metamask" /> <p>Metamask</p>
           </button>
           <br />
