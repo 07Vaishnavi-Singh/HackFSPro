@@ -2,26 +2,31 @@ import React, { useState, useEffect } from "react";
 import Login from "./Login";
 import RoomCreation from "./RoomCreation";
 import "../styles/App.css";
-import logo from "../images/logo.png"
+import logo from "../images/logo.png";
 
 function Loading() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isMetamaskConnected, setIsMetamaskConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const checkUserCookie = () => {
-      const userCookie = localStorage.getItem("user");
-      const isAuthenticated = !userCookie;
-      setIsLoggedIn(isAuthenticated);
-      console.log(isAuthenticated);
+    const checkMetamaskConnection = () => {
+      if (window.ethereum && window.ethereum.selectedAddress) {
+        setIsMetamaskConnected(true);
+        console.log("Metamask checking " + window.ethereum.selectedAddress)
+        
+      } else {
+        setIsMetamaskConnected(false);
+      }
     };
 
     // Simulate loading animation for 5 seconds
     const loadingTimer = setTimeout(() => {
+      checkMetamaskConnection();
+      
       setIsLoading(false);
     }, 5000);
 
-    checkUserCookie();
+    
 
     return () => clearTimeout(loadingTimer);
   }, []);
@@ -29,17 +34,18 @@ function Loading() {
   return (
     <div>
       {isLoading ? (
-        <div id='background'>
-        <div id='fire2'>
-            <div id='fire_border'>
-                <img id="fire" src={logo} />
+        <div id="background">
+          <div id="fire2">
+            <div id="fire_border">
+              <img id="fire" src={logo} alt="logo" />
             </div>
+          </div>
         </div>
-    </div>
-      ) : isLoggedIn ? (
-        <Login />
+      ) : isMetamaskConnected ? (
+        <RoomCreation isMetamaskConnected={isMetamaskConnected}/>
+        
       ) : (
-        <RoomCreation />
+        <Login redirectToRoomCreation={true} />
       )}
     </div>
   );

@@ -1,10 +1,14 @@
 #available-rooms {
   height: auto;
  
-}git stat
+}
+.close-icon {
+  color: #ffffff;
+}
+
 
 #available-rooms-header {
-  font-family: Orbitron;
+  font-family: Orbitron !important;
   font-size: 36px;
   font-weight: 700;
   line-height: 55px;
@@ -12,7 +16,10 @@
   text-align: left;
   color: #ffffff;
   text-align: center;
-  margin-top: 4vh;
+  
+  justify-content: center;
+  margin: auto;
+  margin-top: 2vh;
   margin-bottom: 4vh;
 }
 
@@ -66,4 +73,13 @@
     
 }
 
+#search-container{
+  display: flex;
+  justify-content: center;
+  
+}
+
+#search-bar{
+  padding-bottom: 4vh;
+}
 
