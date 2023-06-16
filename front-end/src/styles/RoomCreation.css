@@ -13,7 +13,7 @@
   padding-top: 30px;
   width: 70%;
   justify-content: space-between;
-  background-color: transparent;
+  background: none;
 }
 
 form {
@@ -52,7 +52,7 @@ form {
   width: 90%;
   display: flex;
   align-items: center;
-  background-color: transparent;
+  background:none;
   color: white !important;
   
 }
@@ -63,7 +63,7 @@ form {
   width: 900px !important;
   border: 1px solid white !important;
   color: whitesmoke !important;
-  
+  background: none !important;
   
   
 
@@ -89,7 +89,7 @@ font-weight: 400 !important;
 font-size: 16px !important;
 line-height: 19px !important;
 letter-spacing: 0.14em !important;
-
+background: none !important;
 color: white !important;
 }
 
@@ -111,24 +111,36 @@ font-size: 16px;
 font-weight: 900;
 line-height: 19px;
 letter-spacing: 0.14em;
-text-align: left;
+text-align: center;
 padding: 20px 40px;
 margin-left: 30px;
-background: linear-gradient(0deg, rgba(170, 20, 240, 0.6), rgba(170, 20, 240, 0.6)), linear-gradient(180.71deg, rgba(170, 20, 240, 0.441) -97.37%, rgba(170, 20, 240, 0.009375) 99.37%, rgba(217, 217, 217, 0) 99.38%, rgba(217, 217, 217, 0) 99.38%);
+/* background: linear-gradient(0deg, rgba(170, 20, 240, 0.6), rgba(170, 20, 240, 0.6)), linear-gradient(180.71deg, rgba(170, 20, 240, 0.441) -97.37%, rgba(170, 20, 240, 0.009375) 99.37%, rgba(217, 217, 217, 0) 99.38%, rgba(217, 217, 217, 0) 99.38%); */
 border: 1px solid #BB77DB;
 border-radius: 14px;
 
 }
-
-#button-stylings2{
-    background: none;
+#chips-container *{
+    background: none !important;
+    color: white !important;
 }
+    
+
 
 #interests{
-    background:none;
+  background: none !important;
 }
 
 #public-private *{
-    background-color:transparent;
-    color: aliceblue !important;
+    
+    
+    background: none !important;
+
+}
+
+#button-container{
+  background: none ;
+}
+
+#toggle-value{
+  background: none !important;
 }

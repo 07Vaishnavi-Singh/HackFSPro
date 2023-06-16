@@ -170,6 +170,7 @@ function RoomForm({ onButtonClick }) {
                   <Chip
                     key={index}
                     color="secondary"
+                    variant="outlined"
                     label={interest}
                     onDelete={() => handleDeleteChip(index)}
                     className="chip"

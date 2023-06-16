@@ -76,8 +76,6 @@ function Login({ redirectToRoomCreation }) {
       </div>
     );
   }
-
-
   return (
     <div id="blah">
       <div id="slide1">
@@ -96,7 +94,7 @@ function Login({ redirectToRoomCreation }) {
         </div>
       </div>
 
-      <div id="Features" ref={featuresRef}>
+      <div id="Features" className="blah" ref={featuresRef}>
         <Carousel />
       </div>
       <div id="About" ref={aboutRef}>
