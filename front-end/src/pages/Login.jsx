@@ -76,7 +76,6 @@ function Login({ redirectToRoomCreation }) {
       </div>
     );
   }
-
   return (
     <div id="blah">
       <div id="slide1">
