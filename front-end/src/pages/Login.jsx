@@ -57,6 +57,26 @@ function Login({ redirectToRoomCreation }) {
     return <RoomCreation isMetamaskConnected={true} />;
   }
 
+  function WalletConnection() {
+    return (
+      <div id="wallet-container">
+        <p id="close-button" onClick={handleButtonClickClose}>
+          x
+        </p>
+        <div id="button-container">
+          <button className="wallet-button" onClick={handleCloseButtonClickMetamask}>
+            <img src={metamask} alt="My Image" /> <p>Metamask</p>
+          </button>
+          <br />
+          <button className="wallet-button">
+            <img src={WalletConnect} alt="My Image" />
+            <p> Wallet Connect</p>
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div id="blah">
       <div id="slide1">
