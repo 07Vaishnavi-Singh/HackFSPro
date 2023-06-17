@@ -1,5 +1,6 @@
 #available-rooms {
   height: auto;
+  background: none !important;
  
 }
 .close-icon {
@@ -16,7 +17,7 @@
   text-align: left;
   color: #ffffff;
   text-align: center;
-  
+  background: none !important;
   justify-content: center;
   margin: auto;
   margin-top: 2vh;
@@ -66,17 +67,22 @@
 
 #room-container{
     margin: auto 7vw;
-
+    background: none !important;
 }
 
 
 #search-container{
   display: flex;
   justify-content: center;
+  background: none !important;
   
 }
 
 #search-bar{
   padding-bottom: 4vh;
+  background: none !important;
 }
 
+#button-container{
+  background: none !important;
+}

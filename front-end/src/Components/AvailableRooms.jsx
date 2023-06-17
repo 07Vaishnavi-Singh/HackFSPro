@@ -97,6 +97,7 @@ const styles = {
   searchIcon: {
     cursor: "pointer",
     marginLeft: "10px",
+    background: "transparent",
   },
   closeIcon: {
     cursor: "pointer",
@@ -119,10 +120,12 @@ const styles = {
     textAlign: "left",
     color: "#ffffff",
     width: "600px",
+    background: "transparent",
   },
   closeIcon: {
     cursor: "pointer",
     marginLeft: "10px",
+    background: "transparent",
   },
   searchBar: {
     display: "flex",

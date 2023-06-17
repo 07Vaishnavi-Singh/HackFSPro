@@ -263,3 +263,17 @@ background-size: cover !important;
   background-position: center !important;
   background-size: cover;
 }
+
+#dashboard-page{
+  background: linear-gradient(180deg, rgba(170, 20, 240, 0.198) 0%, rgba(170, 20, 240, 0.00625) 99.99%, rgba(217, 217, 217, 0) 100%);
+}
+
+#dashboard-container-1{
+  background: none !important;
+}
+#dashboard-container-1{
+  background-image: url(../images/Group.png) !important;
+}
+html{
+  margin: 0;
+}
