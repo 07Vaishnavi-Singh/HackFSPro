@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import "../styles/RoomCreation.css";
 
 function RoomForm({ onButtonClick }) {
+
   const [roomName, setRoomName] = useState("");
   const [interests, setInterests] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -14,6 +15,16 @@ function RoomForm({ onButtonClick }) {
   const [capacity, setCapacity] = useState(10);
   const [token, setToken] = useState("");
   const [contractAddress, setContractAddress] = useState("");
+
+   async function handleFinalSubmit(e){
+
+    setRoomName({});
+
+
+  }
+
+
+
 
   const handleInputChange = (event) => {
     setRoomName(event.target.value);
@@ -63,7 +74,7 @@ function RoomForm({ onButtonClick }) {
     setContractAddress(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
     // Perform any necessary actions with the form data
     console.log("Room Name:", roomName);
@@ -81,11 +92,13 @@ function RoomForm({ onButtonClick }) {
     setToken("");
     setContractAddress("");
     setInterests([]);
-  };
+
+
+  
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method="post" action="/creatingroom">
         <div className="form-field">
           <div className="form-title">Public / Private:</div>
           <FormControlLabel
@@ -157,7 +170,7 @@ function RoomForm({ onButtonClick }) {
           <>
             <div className="form-field">
               <div className="form-title">Interests:</div>
-              <div className="input">
+              <div className="input" >
                 <TextField
                   label="Interests"
                   variant="outlined"
@@ -212,7 +225,8 @@ function RoomForm({ onButtonClick }) {
             id="button-stylings"
             type="submit"
             variant="contained"
-            color="primary"
+            color="primary" 
+
           >
             Submit
           </Button>
@@ -221,5 +235,5 @@ function RoomForm({ onButtonClick }) {
     </>
   );
 }
-
-export default RoomForm;
+}
+export default RoomForm ;
