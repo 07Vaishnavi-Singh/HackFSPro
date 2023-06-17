@@ -15,6 +15,11 @@ function RoomForm({ onButtonClick }) {
   const [token, setToken] = useState("");
   const [contractAddress, setContractAddress] = useState("");
 
+ 
+
+
+
+
   const handleInputChange = (event) => {
     setRoomName(event.target.value);
   };
@@ -85,13 +90,13 @@ function RoomForm({ onButtonClick }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} method ="post" action="/creatingroom">
         <div className="form-field">
           <div className="form-title">Public / Private:</div>
           <FormControlLabel
             id="public-private"
             control={
-              <Switch checked={isPublic} color="primary" id="toggle-butn" onChange={handleToggleChange} />
+              <Switch checked={isPublic} onChange={handleToggleChange} />
             }
           />
           <div id="toggle-value">{isPublic ? "Public" : "Private"}</div>
@@ -152,12 +157,12 @@ function RoomForm({ onButtonClick }) {
             </div>
           </>
         )}
-
+        
         {!isPublic ? null : (
           <>
             <div className="form-field">
               <div className="form-title">Interests:</div>
-              <div className="input">
+              <div className="input" >
                 <TextField
                   label="Interests"
                   variant="outlined"
@@ -178,28 +183,43 @@ function RoomForm({ onButtonClick }) {
               </div>
             </div>
             <div className="form-field">
-              <div className="form-title">Capacity:</div>
-              <div className="input">
-                <TextField
-                  label="Capacity"
-                  type="number"
-                  variant="outlined"
-                  value={capacity}
-                  onChange={handleCapacityChange}
-                  inputProps={{
-                    min: 2,
-                    max: 20,
-                  }}
-                  fullWidth
-                  required
-                />
-              </div>
-            </div>
+          <div className="form-title">Capacity:</div>
+          <div className="input">
+            <TextField
+              label="Capacity"
+              type="number"
+              variant="outlined"
+              value={capacity}
+              onChange={handleCapacityChange}
+              inputProps={{
+                min: 2,
+                max: 20,
+              }}
+              fullWidth
+              required
+            />
+          </div>
+        </div>
           </>
         )}
-        <div id="button-containers">
-          <div id="button1" onClick={onButtonClick}>Back</div>
-          <div id="button2" type="submit">Submit</div>
+        <div id="button-container">
+          <Button
+            id="button-stylings2"
+            onClick={onButtonClick}
+            variant="contained"
+            color="primary"
+            style={{ backgroundColor: "transparent" }}
+          >
+            Back
+          </Button>
+          <Button
+            id="button-stylings"
+            type="submit"
+            variant="contained"
+            color="primary" 
+          >
+            Submit
+          </Button>
         </div>
       </form>
     </>
