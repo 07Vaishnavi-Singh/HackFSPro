@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import "../styles/RoomCreation.css";
 
 function RoomForm({ onButtonClick }) {
-
   const [roomName, setRoomName] = useState("");
   const [interests, setInterests] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -15,16 +14,6 @@ function RoomForm({ onButtonClick }) {
   const [capacity, setCapacity] = useState(10);
   const [token, setToken] = useState("");
   const [contractAddress, setContractAddress] = useState("");
-
-   async function handleFinalSubmit(e){
-
-    setRoomName({});
-
-
-  }
-
-
-
 
   const handleInputChange = (event) => {
     setRoomName(event.target.value);
@@ -74,7 +63,7 @@ function RoomForm({ onButtonClick }) {
     setContractAddress(event.target.value);
   };
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     // Perform any necessary actions with the form data
     console.log("Room Name:", roomName);
@@ -92,19 +81,17 @@ function RoomForm({ onButtonClick }) {
     setToken("");
     setContractAddress("");
     setInterests([]);
-
-
-  
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit} method="post" action="/creatingroom">
+      <form onSubmit={handleSubmit}>
         <div className="form-field">
           <div className="form-title">Public / Private:</div>
           <FormControlLabel
             id="public-private"
             control={
-              <Switch checked={isPublic} onChange={handleToggleChange} />
+              <Switch checked={isPublic} color="primary" id="toggle-butn" onChange={handleToggleChange} />
             }
           />
           <div id="toggle-value">{isPublic ? "Public" : "Private"}</div>
@@ -165,12 +152,12 @@ function RoomForm({ onButtonClick }) {
             </div>
           </>
         )}
-        
+
         {!isPublic ? null : (
           <>
             <div className="form-field">
               <div className="form-title">Interests:</div>
-              <div className="input" >
+              <div className="input">
                 <TextField
                   label="Interests"
                   variant="outlined"
@@ -183,7 +170,6 @@ function RoomForm({ onButtonClick }) {
                   <Chip
                     key={index}
                     color="secondary"
-                    variant="outlined"
                     label={interest}
                     onDelete={() => handleDeleteChip(index)}
                     className="chip"
@@ -192,48 +178,32 @@ function RoomForm({ onButtonClick }) {
               </div>
             </div>
             <div className="form-field">
-          <div className="form-title">Capacity:</div>
-          <div className="input">
-            <TextField
-              label="Capacity"
-              type="number"
-              variant="outlined"
-              value={capacity}
-              onChange={handleCapacityChange}
-              inputProps={{
-                min: 2,
-                max: 20,
-              }}
-              fullWidth
-              required
-            />
-          </div>
-        </div>
+              <div className="form-title">Capacity:</div>
+              <div className="input">
+                <TextField
+                  label="Capacity"
+                  type="number"
+                  variant="outlined"
+                  value={capacity}
+                  onChange={handleCapacityChange}
+                  inputProps={{
+                    min: 2,
+                    max: 20,
+                  }}
+                  fullWidth
+                  required
+                />
+              </div>
+            </div>
           </>
         )}
-        <div id="button-container">
-          <Button
-            id="button-stylings2"
-            onClick={onButtonClick}
-            variant="contained"
-            color="primary"
-            style={{ backgroundColor: "transparent" }}
-          >
-            Back
-          </Button>
-          <Button
-            id="button-stylings"
-            type="submit"
-            variant="contained"
-            color="primary" 
-
-          >
-            Submit
-          </Button>
+        <div id="button-containers">
+          <div id="button1" onClick={onButtonClick}>Back</div>
+          <div id="button2" type="submit">Submit</div>
         </div>
       </form>
     </>
   );
 }
-}
-export default RoomForm ;
+
+export default RoomForm;
