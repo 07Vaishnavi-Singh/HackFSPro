@@ -34,7 +34,7 @@ function RoomCreation({ isMetamaskConnected }) {
           id="home"
           onButtonClick={scrollToFeatures}
           onButtonClick2={scrollToAboutUs}
-          
+          isMetamaskConnected={ isMetamaskConnected }
         />
         {showForm ? (
           <RoomForm onButtonClick={handleClose} />

@@ -10,11 +10,23 @@ function AvailableRooms({ onButtonClick1 }) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [showSearch, setShowSearch] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+  const [filteredRooms, setFilteredRooms] = useState([]);
 
   const rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5", "Room 6"];
 
   const renderRooms = () => {
-    return rooms.map((room, index) => (
+    let roomsToRender = rooms;
+
+    if (searchInput.trim() !== "") {
+      roomsToRender = filteredRooms.length > 0 ? filteredRooms : [];
+    }
+
+    if (roomsToRender.length === 0) {
+      return <div style={styles.notFoundMessage}>Room not found</div>;
+    }
+
+    return roomsToRender.map((room, index) => (
       <div key={index} style={styles.card} className="room">
         <p>{room}</p>
       </div>
@@ -27,6 +39,18 @@ function AvailableRooms({ onButtonClick1 }) {
 
   const handleCloseClick = () => {
     setShowSearch(false);
+    setSearchInput("");
+    setFilteredRooms([]);
+  };
+
+  const handleSearchInputChange = (event) => {
+    const value = event.target.value;
+    setSearchInput(value);
+
+    const filtered = rooms.filter((room) =>
+      room.toLowerCase().includes(value.toLowerCase())
+    );
+    setFilteredRooms(filtered);
   };
 
   return (
@@ -34,7 +58,7 @@ function AvailableRooms({ onButtonClick1 }) {
       <div id="search-container">
         {!showSearch ? (
           <>
-            <div id="available-rooms-header">
+            <div id="available-rooms-header" style={styles.availableRoomsHeader}>
               Chat rooms available
               <SearchIcon
                 style={styles.searchIcon}
@@ -48,8 +72,14 @@ function AvailableRooms({ onButtonClick1 }) {
               type="text"
               style={styles.searchInput}
               placeholder="Search rooms"
+              onChange={handleSearchInputChange}
+              value={searchInput}
             />
-            <CloseIcon style={styles.closeIcon} className="close-icon" onClick={handleCloseClick} />
+            <CloseIcon
+              style={styles.closeIcon}
+              className="close-icon"
+              onClick={handleCloseClick}
+            />
           </div>
         )}
       </div>
@@ -102,10 +132,10 @@ const styles = {
   closeIcon: {
     cursor: "pointer",
     marginLeft: "10px",
+    background: "transparent",
   },
-
   searchInput: {
-    width: "200px",
+    width: "100%",
     height: "32px",
     margin: "10px",
     borderRadius: "4px",
@@ -119,12 +149,6 @@ const styles = {
     letterSpacing: "0.14em",
     textAlign: "left",
     color: "#ffffff",
-    width: "600px",
-    background: "transparent",
-  },
-  closeIcon: {
-    cursor: "pointer",
-    marginLeft: "10px",
     background: "transparent",
   },
   searchBar: {
@@ -132,7 +156,7 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     marginTop: "10px",
-    width: "500px", 
+    width: "600px",
   },
   availableRoomsHeader: {
     fontFamily: "Orbitron",
@@ -146,6 +170,16 @@ const styles = {
     color: "#ffffff",
     marginTop: "4vh",
     marginBottom: "4vh",
+  },
+  notFoundMessage: {
+    fontFamily: "Orbitron",
+    fontSize: "24px",
+    fontWeight: "700",
+    lineHeight: "36px",
+    letterSpacing: "0.14em",
+    textAlign: "center",
+    color: "#ffffff",
+    marginTop: "20px",
   },
 };
 
