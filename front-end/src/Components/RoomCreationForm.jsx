@@ -66,11 +66,11 @@ function RoomForm({ onButtonClick, setEthAddress }) {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();   
     console.log("Form submitted!" + setEthAddress);
 
     if (isPublic) {
-      
+      // Make request to public room endpoint
       try {
         const response = await axios.post("http://localhost:3001/joininPublicRoom", {
           roomName,
@@ -88,18 +88,16 @@ function RoomForm({ onButtonClick, setEthAddress }) {
         }
       } catch (error) {
         console.error("Error joining public room:", error);
-      }
+      }      
     } else {
       // Make request to private room endpoint
-      try {
+      try {    
         const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
           params: {
-            roomId: roomName,
-            capacity,
-            chainType,
-            token,
+            roomName,
+            chain,
+            tokenType,
             contractAddress,
-            ethAddress: setEthAddress,
           },
         });
 
