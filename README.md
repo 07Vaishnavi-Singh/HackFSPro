@@ -14,6 +14,8 @@ Archangel provides its users with the option to join Public rooms created by act
 
 Guests who want to join these Public rooms can just click on the available rooms shown on the screen and also select from their field of interest to join rooms of their field of interest they can do so from the available rooms button and choose to segregate the available public rooms to match their interests.
 
+![](./Screenshots/AvailableRooms.jpg)
+
 Archangel also has a feature of Private rooms that can be created by hosts who want to keep their meetings private and only accessible to guests who hold a particular NFT (ERC721 or ERC1155). For creating these rooms hosts have to specify the field of interest of these rooms and also the Token Type, Token chain and the Token Contract Address that will be used to segregate the incoming guests To join these rooms guests will be required to have the set Token in their wallets and they will be good to go and join the rooms.
 
 ## How it is made 
