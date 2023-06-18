@@ -10,6 +10,7 @@ It is made using the huddle React JS SDK and the complimentary APIs it provides 
 
 As Archangel is a web3 platform the only setup you need before starting is a MetaMask wallet in your browser and you are all set to go. Currently, we support MetaMask and WalletConnect and we plan to integrate much more wallets in the future.
 
+
 Archangel provides its users with the option to join Public rooms created by active users across the world which can be seen once users connect their wallet by clicking on the connect wallet button in the top right corner. These available rooms come with the field of interest that the room creator has specified during the time of room creation. These interest fields help guests to join only if their rooms are of interest and prevents bad experience. The room creator also sets the maximum capacity of the guests each available room can have which also comes in very handy in the front end as you hover over the available room's screen.
 
 Guests who want to join these Public rooms can just click on the available rooms shown on the screen and also select from their field of interest to join rooms of their field of interest they can do so from the available rooms button and choose to segregate the available public rooms to match their interests.
