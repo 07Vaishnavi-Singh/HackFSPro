@@ -5,8 +5,9 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Button from "@material-ui/core/Button";
 import "../styles/RoomCreation.css";
+import axios from "axios";
 
-function RoomForm({ onButtonClick }) {
+function RoomForm({ onButtonClick, setEthAddress }) {
   const [roomName, setRoomName] = useState("");
   const [interests, setInterests] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
@@ -14,11 +15,6 @@ function RoomForm({ onButtonClick }) {
   const [capacity, setCapacity] = useState(10);
   const [token, setToken] = useState("");
   const [contractAddress, setContractAddress] = useState("");
-
- 
-
-
-
 
   const handleInputChange = (event) => {
     setRoomName(event.target.value);
@@ -35,6 +31,7 @@ function RoomForm({ onButtonClick }) {
     }
     setCapacity(value);
   };
+
   const handleInterestsChange = (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
@@ -68,17 +65,55 @@ function RoomForm({ onButtonClick }) {
     setContractAddress(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Perform any necessary actions with the form data
-    console.log("Room Name:", roomName);
-    console.log("Public:", isPublic);
-    console.log("Capacity:", capacity);
-    console.log("Chain Type:", chainType);
-    console.log("Token:", token);
-    console.log("Contract Address:", contractAddress);
-    console.log("Interests:", interests);
-    // Reset the form
+    console.log("Form submitted!" + setEthAddress);
+
+    if (isPublic) {
+      // Make request to public room endpoint
+      try {
+        const response = await axios.post("http://localhost:3001/joininPublicRoom", {
+          roomName,
+          interests,
+          ethAddress: setEthAddress,
+        });
+
+        if (response.status === 200) {
+          const meetingLink = response.data.meetingLink;
+          console.log("Meeting Link:", meetingLink);
+          // Redirect the user to the meeting link
+          window.location.href = meetingLink;
+        } else {
+          console.log("Failed to join public room");
+        }
+      } catch (error) {
+        console.error("Error joining public room:", error);
+      }
+    } else {
+      // Make request to private room endpoint
+      try {
+        const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
+          params: {
+            roomId: roomName,
+            capacity,
+            chainType,
+            token,
+            contractAddress,
+            ethAddress: setEthAddress,
+          },
+        });
+
+        if (response.status === 200) {
+          console.log("Joined private room:", roomName);
+        } else {
+          console.log("Failed to join private room");
+        }
+      } catch (error) {
+        console.error("Error joining private room:", error);
+      }
+    }
+
+    // Reset the form fields
     setRoomName("");
     setIsPublic(true);
     setCapacity(10);
@@ -90,7 +125,7 @@ function RoomForm({ onButtonClick }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit} method ="post" action="/creatingroom">
+      <form onSubmit={handleSubmit} >
         <div className="form-field">
           <div className="form-title">Public / Private:</div>
           <FormControlLabel

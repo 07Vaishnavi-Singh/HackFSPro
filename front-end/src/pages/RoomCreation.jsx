@@ -6,7 +6,7 @@ import RoomForm from "../Components/RoomCreationForm";
 import Aboutus from "../Components/Aboutus";
 import "../styles/App.css";
 
-function RoomCreation({ isMetamaskConnected }) {
+function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
   const [showForm, setShowForm] = useState(false);
   const featuresRef = useRef(null);
   const aboutRef = useRef(null);
@@ -37,7 +37,7 @@ function RoomCreation({ isMetamaskConnected }) {
           isMetamaskConnected={ isMetamaskConnected }
         />
         {showForm ? (
-          <RoomForm onButtonClick={handleClose} />
+          <RoomForm onButtonClick={handleClose} setEthAddress={setEthAddress}/>
         ) : (
           <AvailableRooms onButtonClick1={handleOpen} />
         )}

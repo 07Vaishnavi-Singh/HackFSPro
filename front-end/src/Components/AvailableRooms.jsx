@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SwipeableViews from "react-swipeable-views";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
 import "../styles/AvailableRooms.css";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
 function AvailableRooms({ onButtonClick1 }) {
   const theme = useTheme();
@@ -12,26 +14,37 @@ function AvailableRooms({ onButtonClick1 }) {
   const [showSearch, setShowSearch] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [filteredRooms, setFilteredRooms] = useState([]);
+  const [rooms, setRooms] = useState([]);
 
-  const rooms = ["Room 1", "Room 2", "Room 3", "Room 4", "Room 5", "Room 6"];
+  useEffect(() => {
+    // Initialize Firebase
+    // Your Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAnI3UqmrELKb7ZZ6SYHTElCVYVIpEwNPc",
+      authDomain: "huddle01-cf3f9.firebaseapp.com",
+      projectId: "huddle01-cf3f9",
+      storageBucket: "huddle01-cf3f9.appspot.com",
+      messagingSenderId: "1039301002023",
+      appId: "1:1039301002023:web:c5205fda0a01b497785f02",
+      measurementId: "G-43FC2RR3YW",
+    };
 
-  const renderRooms = () => {
-    let roomsToRender = rooms;
+    const firebaseApp = initializeApp(firebaseConfig);
+    const db = getFirestore(firebaseApp);
 
-    if (searchInput.trim() !== "") {
-      roomsToRender = filteredRooms.length > 0 ? filteredRooms : [];
-    }
+    const fetchRooms = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "rooms"));
+        const roomsData = querySnapshot.docs.map((doc) => doc.data());
 
-    if (roomsToRender.length === 0) {
-      return <div style={styles.notFoundMessage}>Room not found</div>;
-    }
+        setRooms(roomsData);
+      } catch (error) {
+        console.error("Error fetching rooms: ", error);
+      }
+    };
 
-    return roomsToRender.map((room, index) => (
-      <div key={index} style={styles.card} className="room">
-        <p>{room}</p>
-      </div>
-    ));
-  };
+    fetchRooms();
+  }, []);
 
   const handleSearchClick = () => {
     setShowSearch(true);
@@ -48,9 +61,60 @@ function AvailableRooms({ onButtonClick1 }) {
     setSearchInput(value);
 
     const filtered = rooms.filter((room) =>
-      room.toLowerCase().includes(value.toLowerCase())
+      room.roomName.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredRooms(filtered);
+  };
+
+  const handleCardHover = (index) => {
+    const updatedRooms = [...rooms];
+    updatedRooms[index].isHovered = !updatedRooms[index].isHovered;
+    setRooms(updatedRooms);
+  };
+
+  const renderRooms = () => {
+    let roomsToRender = rooms;
+
+    if (searchInput.trim() !== "") {
+      roomsToRender = filteredRooms.length > 0 ? filteredRooms : [];
+    }
+
+    if (roomsToRender.length === 0) {
+      return <div style={styles.notFoundMessage}>Room not found</div>;
+    }
+
+    return roomsToRender.map((room, index) => (
+      <div
+        key={index}
+        style={styles.card}
+        className={`room ${room.isHovered ? "hovered" : ""}`}
+        onMouseEnter={() => handleCardHover(index)}
+        onMouseLeave={() => handleCardHover(index)}
+      >
+        {room.isHovered ? (
+          <>
+            <a
+              href={room.meetingLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <p>Join Meeting</p>
+            </a>
+            <h5 id="interest-container">
+              {room.interests.map((interest, index) => {
+                if (index !== room.interests.length - 1) {
+                  return <span id="interests" key={index}>{interest}, </span>;
+                } else {
+                  return <span id="interests" key={index}>{interest}</span>;
+                }
+              })}
+            </h5>
+          </>
+        ) : (
+          <p>{room.roomName}</p>
+        )}
+      </div>
+    ));
   };
 
   return (
@@ -58,7 +122,10 @@ function AvailableRooms({ onButtonClick1 }) {
       <div id="search-container">
         {!showSearch ? (
           <>
-            <div id="available-rooms-header" style={styles.availableRoomsHeader}>
+            <div
+              id="available-rooms-header"
+              style={styles.availableRoomsHeader}
+            >
               Chat rooms available
               <SearchIcon
                 style={styles.searchIcon}
@@ -123,6 +190,9 @@ const styles = {
     borderRadius: "8.8934px",
     padding: "20px",
     clipPath: "polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%, 0% 20%)",
+    transition: "transform 0.3s ease-in-out",
+    cursor: "pointer",
+    position: "relative",
   },
   searchIcon: {
     cursor: "pointer",
@@ -163,23 +233,21 @@ const styles = {
     fontSize: "36px",
     fontWeight: "700",
     lineHeight: "55px",
-    letterSpacing: "0.14em",
-    textAlign: "center",
+    letterSpacing: "0.25em",
+    textAlign: "left",
+    color: "#ffffff",
     display: "flex",
     alignItems: "center",
-    color: "#ffffff",
-    marginTop: "4vh",
-    marginBottom: "4vh",
   },
   notFoundMessage: {
     fontFamily: "Orbitron",
     fontSize: "24px",
     fontWeight: "700",
     lineHeight: "36px",
-    letterSpacing: "0.14em",
+    letterSpacing: "0.25em",
     textAlign: "center",
     color: "#ffffff",
-    marginTop: "20px",
+    marginTop: "50px",
   },
 };
 

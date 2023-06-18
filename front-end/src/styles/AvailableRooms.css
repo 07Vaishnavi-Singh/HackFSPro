@@ -7,6 +7,10 @@
   color: #ffffff;
 }
 
+@font-face {
+  font-family: "Nexa";
+  src: url("../fonts/Nexa-Trial-Regular.otf") format("truetype");
+}
 
 #available-rooms-header {
   font-family: Orbitron !important;
@@ -85,4 +89,18 @@
 
 #button-container{
   background: none !important;
+}
+
+#interests{
+  background: none !important;
+  color: white;
+  font-family: "Nexa", sans-serif;
+  font-style: normal;
+  font-weight: 100;
+  font-size: 16px;
+}
+
+#interest-container{
+  background: none !important;
+  
 }

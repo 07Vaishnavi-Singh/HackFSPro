@@ -6,6 +6,7 @@ import logo from "../images/logo.png";
 
 function Loading() {
   const [isMetamaskConnected, setIsMetamaskConnected] = useState(false);
+  const [ethAddress, setEthAddress] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -13,7 +14,7 @@ function Loading() {
       if (window.ethereum && window.ethereum.selectedAddress) {
         setIsMetamaskConnected(true);
         console.log("Metamask checking " + window.ethereum.selectedAddress)
-        
+        setEthAddress(window.ethereum.selectedAddress);
       } else {
         setIsMetamaskConnected(false);
       }
@@ -42,7 +43,7 @@ function Loading() {
           </div>
         </div>
       ) : isMetamaskConnected ? (
-        <RoomCreation isMetamaskConnected={isMetamaskConnected}/>
+        <RoomCreation isMetamaskConnected={isMetamaskConnected} setEthAddress={ethAddress}/>
         
       ) : (
         <Login redirectToRoomCreation={true} />
