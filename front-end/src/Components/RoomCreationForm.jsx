@@ -82,7 +82,7 @@ function RoomForm({ onButtonClick, setEthAddress }) {
           const meetingLink = response.data.meetingLink;
           console.log("Meeting Link:", meetingLink);
           // Redirect the user to the meeting link
-          window.location.href = meetingLink;
+          window.location.href = meetingLink;  
         } else {
           console.log("Failed to join public room");
         }
@@ -93,13 +93,11 @@ function RoomForm({ onButtonClick, setEthAddress }) {
       // Make request to private room endpoint
       try {    
         const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
-          params: {
             roomName,
-            chain,
-            tokenType,
+            chainType,
+            token,
             contractAddress,
-          },
-        });
+          });
 
         if (response.status === 200) {
           console.log("Joined private room:", roomName);
