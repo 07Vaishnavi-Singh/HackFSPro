@@ -26,15 +26,54 @@ app.use(express.json());
 
 app.set("view engine", "jade");
 
-app.get("/joininPrivateRoom", (req, res) => {
-  const roomId = req.query.roomId;
-  const capacity = req.query.capacity;
-  const chainType = req.query.chainType;
-  const token = req.query.token;
-  const contractAddress = req.query.contractAddress;
-  const ethAddress = req.query.ethAddress;
+app.get("/joininPrivateRoom", async(req, res) => {
 
-  res.json({ roomId, capacity, chainType, token, contractAddress, ethAddress });
+  const {roomName,chainType,token,contractAddress} = req.body ;
+ 
+  try {
+    const response = await axios.post(
+      'https://api.huddle01.com/api/v1/create-room',
+      {
+          "title": roomName,
+          "tokenType": token,
+          "chain": chainType,
+          "contractAddress": [contractAddress]
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': "wWEukbne5VadgXfQciIpymOmgcOjrqOW",
+        },
+      }
+    );
+    
+    const createdRoomId = response;
+    console.log(createdRoomId);
+    if (!createdRoomId) {
+      throw new Error("Invalid response: Missing roomId");
+    }
+    const meetingLink = `https://app.huddle01.com/${createdRoomId}`;
+
+    console.log("Joining public room:", roomName);
+    const roomData = {
+      meetingLink,
+      roomName,
+      interests,
+    };
+    await addDoc(collection(db, "rooms"), roomData);
+    res.json({ meetingLink });
+  } catch (error) {
+    console.error("Error joining public room:", error);
+    let errorMessage = "Error joining public room";
+    if (error.response && error.response.data && error.response.data.message) {
+      errorMessage = error.response.data.message;
+    }
+    res.status(500).json({ error: errorMessage });
+  }
+
+
+
+  // res.json({ roomId, capacity, chainType, token, contractAddress, ethAddress });
 });
 
 app.post("/joininPublicRoom", async (req, res) => {
@@ -56,19 +95,20 @@ app.post("/joininPublicRoom", async (req, res) => {
     );
 
     const createdRoomId = response.data.data?.roomId;
-    if (!createdRoomId) {
-      throw new Error("Invalid response: Missing roomId");
-    }
-    const meetingLink = `https://app.huddle01.com/${createdRoomId}`;
+    console.log(createdRoomId);
+    // if (!createdRoomId) {
+    //   throw new Error("Invalid response: Missing roomId");
+    // }
+    // const meetingLink = `https://app.huddle01.com/${createdRoomId}`;
 
-    console.log("Joining public room:", roomName);
-    const roomData = {
-      meetingLink,
-      roomName,
-      interests,
-    };
-    await addDoc(collection(db, "rooms"), roomData);
-    res.json({ meetingLink });
+    // console.log("Joining public room:", roomName);
+    // const roomData = {
+    //   meetingLink,
+    //   roomName,
+    //   interests,
+    // };
+    // await addDoc(collection(db, "rooms"), roomData);
+    // res.json({ meetingLink });
   } catch (error) {
     console.error("Error joining public room:", error);
     let errorMessage = "Error joining public room";

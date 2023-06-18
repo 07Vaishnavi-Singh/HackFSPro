@@ -70,7 +70,7 @@ function RoomForm({ onButtonClick, setEthAddress }) {
     console.log("Form submitted!" + setEthAddress);
 
     if (isPublic) {
-      
+      // Make request to public room endpoint
       try {
         const response = await axios.post("http://localhost:3001/joininPublicRoom", {
           roomName,
@@ -90,7 +90,7 @@ function RoomForm({ onButtonClick, setEthAddress }) {
         console.error("Error joining public room:", error);
       }
     } else {
-      // Make request to private room endpoint
+      
       try {
         const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
           params: {
@@ -237,24 +237,13 @@ function RoomForm({ onButtonClick, setEthAddress }) {
         </div>
           </>
         )}
-        <div id="button-container">
-          <Button
-            id="button-stylings2"
-            onClick={onButtonClick}
-            variant="contained"
-            color="primary"
-            style={{ backgroundColor: "transparent" }}
-          >
+        <div id="button-containers">
+          <button id="#button1" onClick={onButtonClick}>
             Back
-          </Button>
-          <Button
-            id="button-stylings"
-            type="submit"
-            variant="contained"
-            color="primary" 
-          >
-            Submit
-          </Button>
+          </button>
+          <button id="#button2" type="submit">
+            Join
+          </button>
         </div>
       </form>
     </>

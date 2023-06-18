@@ -10,6 +10,7 @@
   flex-direction: row;
   padding-top: 30px;
   width: 70%;
+  
   justify-content: space-between;
   background: none;
 }
@@ -61,6 +62,7 @@ form {
   border: 1px solid white !important;
   color: whitesmoke !important;
   background: none !important;
+  height: 50px !important;
 }
 
 .chips-container {
@@ -71,7 +73,7 @@ form {
   font-size: 16px !important;
   line-height: 19px !important;
   letter-spacing: 0.14em !important;
-
+  background: none !important;
   color: white !important;
 }
 
@@ -108,9 +110,10 @@ form {
   text-align: center;
   padding: 20px 40px;
   margin-left: 30px;
-  /* background: linear-gradient(0deg, rgba(170, 20, 240, 0.6), rgba(170, 20, 240, 0.6)), linear-gradient(180.71deg, rgba(170, 20, 240, 0.441) -97.37%, rgba(170, 20, 240, 0.009375) 99.37%, rgba(217, 217, 217, 0) 99.38%, rgba(217, 217, 217, 0) 99.38%); */
+  background: linear-gradient(0deg, rgba(170, 20, 240, 0.6), rgba(170, 20, 240, 0.6)), linear-gradient(180.71deg, rgba(170, 20, 240, 0.441) -97.37%, rgba(170, 20, 240, 0.009375) 99.37%, rgba(217, 217, 217, 0) 99.38%, rgba(217, 217, 217, 0) 99.38%);
   border: 1px solid #bb77db;
   border-radius: 14px;
+  
 }
 #chips-container * {
   background: none !important;
@@ -162,7 +165,8 @@ form {
   color: #d9d9d9;
 }
 #button1{
-  background: none !important;
+  background-color: black !important;
+  
 }
 
 #public-private{
