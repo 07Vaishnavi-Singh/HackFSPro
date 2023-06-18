@@ -5,10 +5,12 @@ import AvailableRooms from "../Components/AvailableRooms";
 import RoomForm from "../Components/RoomCreationForm";
 import Aboutus from "../Components/Aboutus";
 import "../styles/App.css";
+import RandomForm from "../Components/Random";
 
-function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
+function RoomCreation({ isMetamaskConnected, setEthAddress }) {
   const [showForm, setShowForm] = useState(false);
   const [showForm2, setShowForm2] = useState(false);
+  const [showForm3, setShowForm3] = useState(false);
   const featuresRef = useRef(null);
   const aboutRef = useRef(null);
 
@@ -22,13 +24,19 @@ function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
 
   const handleOpen = () => {
     setShowForm(true);
+    setShowForm2(true);
+    
   };
   const handleOpen2 = () => {
-    setShowForm2(true);
+    setShowForm(true);
+    setShowForm2(false);
+    
   };
 
   const handleClose = () => {
     setShowForm(false);
+    setShowForm2(true);
+    
   };
 
   return (
@@ -38,19 +46,31 @@ function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
           id="home"
           onButtonClick={scrollToFeatures}
           onButtonClick2={scrollToAboutUs}
-          isMetamaskConnected={ isMetamaskConnected }
+          isMetamaskConnected={isMetamaskConnected}
         />
         {showForm ? (
-          <RoomForm onButtonClick={handleClose} setEthAddress={setEthAddress}/>
+          showForm2 ? (
+            <RoomForm
+              onButtonClick={handleClose}
+              setEthAddress={setEthAddress}
+            />
+          ) : (
+            <RandomForm
+              handleClick3={handleClose}
+              setEthAddress={setEthAddress}
+            />
+          )
         ) : (
-          <AvailableRooms onButtonClick1={handleOpen}  onButtonClick2={handleOpen2}/>
+          <AvailableRooms
+            onButtonClick1={handleOpen}
+            onButtonClick2={handleOpen2}
+          />
         )}
       </div>
-      <div id="dashboard-container-2" >
+      <div id="dashboard-container-2">
         <div id="Features" ref={featuresRef}>
-        <Features />
+          <Features />
         </div>
-        
       </div>
       <div id="About" ref={aboutRef}>
         <Aboutus />

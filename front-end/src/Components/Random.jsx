@@ -1,272 +1,149 @@
-import React, { useState } from "react";
-import Chip from "@material-ui/core/Chip";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Switch from "@material-ui/core/Switch";
-import Button from "@material-ui/core/Button";
-import "../styles/RoomCreation.css";
-import axios from "axios";
+import React, { useState } from 'react';
+import { getFirestore, collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import { initializeApp } from 'firebase/app';
+import '../styles/RandomnessForm.css';
 
-function RoomForm({ onButtonClick, setEthAddress }) {
-  const [roomName, setRoomName] = useState("");
-  const [interests, setInterests] = useState([]);
-  const [isPublic, setIsPublic] = useState(true);
-  const [chainType, setChainType] = useState("");
-  const [capacity, setCapacity] = useState(10);
-  const [token, setToken] = useState("");
-  const [contractAddress, setContractAddress] = useState("");
+const firebaseConfig = {
+  apiKey: "AIzaSyAnI3UqmrELKb7ZZ6SYHTElCVYVIpEwNPc",
+  authDomain: "huddle01-cf3f9.firebaseapp.com",
+  projectId: "huddle01-cf3f9",
+  storageBucket: "huddle01-cf3f9.appspot.com",
+  messagingSenderId: "1039301002023",
+  appId: "1:1039301002023:web:c5205fda0a01b497785f02",
+  measurementId: "G-43FC2RR3YW",
+};
 
-  const handleInputChange = (event) => {
-    setRoomName(event.target.value);
+const app = initializeApp(firebaseConfig);
+const firestore = getFirestore(app);
+
+const RandomForm = ({ handleClick3 }) => {
+  const [priority1, setPriority1] = useState('');
+  const [priority2, setPriority2] = useState('');
+  const [priority3, setPriority3] = useState('');
+
+  const handlePriority1Change = (e) => {
+    setPriority1(e.target.value);
   };
 
-  const handleCapacityChange = (event) => {
-    let value = parseInt(event.target.value, 10);
-    if (isNaN(value)) {
-      value = "";
-    } else if (value < 2) {
-      value = 2;
-    } else if (value > 20) {
-      value = 20;
-    }
-    setCapacity(value);
+  const handlePriority2Change = (e) => {
+    setPriority2(e.target.value);
   };
 
-  const handleInterestsChange = (event) => {
-    if (event.key === "Enter") {
-      event.preventDefault();
-      const newInterest = event.target.value.trim();
-      if (newInterest && interests.length < 5) {
-        setInterests([...interests, newInterest]);
-        event.target.value = "";
-      }
-    }
+  const handlePriority3Change = (e) => {
+    setPriority3(e.target.value);
   };
 
-  const handleDeleteChip = (index) => {
-    const updatedInterests = [...interests];
-    updatedInterests.splice(index, 1);
-    setInterests(updatedInterests);
-  };
+  const handleJoinRandom = async () => {
+    const q = query(collection(firestore, 'rooms'), where('interests', 'array-contains', ''));
 
-  const handleToggleChange = (event) => {
-    setIsPublic(event.target.checked);
-  };
+    try {
+      const querySnapshot = await getDocs(q);
 
-  const handleChainTypeChange = (event) => {
-    setChainType(event.target.value);
-  };
+      if (querySnapshot.empty) {
+        const allRoomsSnapshot = await getDocs(collection(firestore, 'rooms'));
+        const allRooms = allRoomsSnapshot.docs.map((doc) => doc.data());
 
-  const handleTokenChange = (event) => {
-    setToken(event.target.value);
-  };
-
-  const handleContractAddressChange = (event) => {
-    setContractAddress(event.target.value);
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log("Form submitted!" + setEthAddress);
-
-    if (isPublic) {
-      
-      try {
-        const response = await axios.post("http://localhost:3001/joininPublicRoom", {
-          roomName,
-          interests,
-          ethAddress: setEthAddress,
-        });
-
-        if (response.status === 200) {
-          const meetingLink = response.data.meetingLink;
-          console.log("Meeting Link:", meetingLink);
-          // Redirect the user to the meeting link
+        if (allRooms.length > 0) {
+          const randomRoomIndex = Math.floor(Math.random() * allRooms.length);
+          const randomRoom = allRooms[randomRoomIndex];
+          const meetingLink = randomRoom.meetingLink;
           window.location.href = meetingLink;
         } else {
-          console.log("Failed to join public room");
+          console.log('No rooms available');
         }
-      } catch (error) {
-        console.error("Error joining public room:", error);
+      } else {
+        const randomIndex = Math.floor(Math.random() * querySnapshot.size);
+        const room = querySnapshot.docs[randomIndex].data();
+        const meetingLink = room.meetingLink;
+        window.location.href = meetingLink;
       }
-    } else {
-      // Make request to private room endpoint
-      try {
-        const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
-          params: {
-            roomId: roomName,
-            capacity,
-            chainType,
-            token,
-            contractAddress,
-            ethAddress: setEthAddress,
-          },
-        });
-
-        if (response.status === 200) {
-          console.log("Joined private room:", roomName);
-        } else {
-          console.log("Failed to join private room");
-        }
-      } catch (error) {
-        console.error("Error joining private room:", error);
-      }
+    } catch (error) {
+      console.error('Error joining random room:', error);
     }
+  };
 
-    // Reset the form fields
-    setRoomName("");
-    setIsPublic(true);
-    setCapacity(10);
-    setChainType("");
-    setToken("");
-    setContractAddress("");
-    setInterests([]);
+  const handleSearchRooms = async () => {
+    const userPriorities = [priority1, priority2, priority3];
+    const q = query(collection(firestore, 'rooms'), where('interests', 'array-contains-any', userPriorities));
+
+    try {
+      const querySnapshot = await getDocs(q);
+      let bestMatchCount = 0;
+      let bestMatchRoom = null;
+
+      querySnapshot.forEach((doc) => {
+        const room = doc.data();
+        const matchingInterests = room.interests.filter((interest) =>
+          userPriorities.includes(interest)
+        );
+
+        if (matchingInterests.length > bestMatchCount) {
+          bestMatchCount = matchingInterests.length;
+          bestMatchRoom = room;
+        }
+      });
+
+      if (bestMatchRoom) {
+        const meetingLink = bestMatchRoom.meetingLink;
+        window.location.href = meetingLink;
+      } else {
+        console.log('No matching rooms found');
+      }
+    } catch (error) {
+      console.error('Error searching rooms:', error);
+    }
   };
 
   return (
-    <>
-      <form onSubmit={handleSubmit} >
-        <div className="form-field">
-          <div className="form-title">Public / Private:</div>
-          <FormControlLabel
-            id="public-private"
-            control={
-              <Switch checked={isPublic} onChange={handleToggleChange} />
-            }
-          />
-          <div id="toggle-value">{isPublic ? "Public" : "Private"}</div>
-        </div>
-        <div className="form-field">
-          <div className="form-title">Name:</div>
-          <div className="input">
-            <TextField
-              label="Enter the name of the room"
-              variant="outlined"
-              value={roomName}
-              onChange={handleInputChange}
-              fullWidth
-              required
-            />
-          </div>
-        </div>
-        {!isPublic && (
-          <>
-            <div className="form-field">
-              <div className="form-title">Chain :</div>
-              <div className="input">
-                <TextField
-                  label="Chain Type"
-                  variant="outlined"
-                  value={chainType}
-                  onChange={handleChainTypeChange}
-                  fullWidth
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-field">
-              <div className="form-title">Token type :</div>
-              <div className="input">
-                <TextField
-                  label="Token"
-                  variant="outlined"
-                  value={token}
-                  onChange={handleTokenChange}
-                  fullWidth
-                  required
-                />
-              </div>
-            </div>
-            <div className="form-field">
-              <div className="form-title">Contract Address:</div>
-              <div className="input">
-                <TextField
-                  label="Contract Address"
-                  variant="outlined"
-                  value={contractAddress}
-                  onChange={handleContractAddressChange}
-                  fullWidth
-                  required
-                />
-              </div>
-            </div>
-          </>
-        )}
-        
-        {!isPublic ? null : (
-          <>
-            <div className="form-field">
-              <div className="form-title">Interests:</div>
-              <div className="input" >
-                <TextField
-                  label="Interests"
-                  variant="outlined"
-                  onKeyDown={handleInterestsChange}
-                  fullWidth
-                />
-              </div>
-              <div className="chips-container">
-                {interests.map((interest, index) => (
-                  <Chip
-                    key={index}
-                    color="secondary"
-                    label={interest}
-                    onDelete={() => handleDeleteChip(index)}
-                    className="chip"
-                  />
-                ))}
-              </div>
-            </div>
-            <div className="form-field">
-          <div className="form-title">Capacity:</div>
-          <div className="input">
-            <TextField
-              label="Capacity"
-              type="number"
-              variant="outlined"
-              value={capacity}
-              onChange={handleCapacityChange}
-              inputProps={{
-                min: 2,
-                max: 20,
-              }}
-              fullWidth
-              required
-            />
-          </div>
-        </div>
-          </>
-        )}
-        <div id="button-container">
-          <Button
-            id="button-stylings2"
-            onClick={onButtonClick}
-            variant="contained"
-            color="primary"
-            style={{ backgroundColor: "transparent" }}
-          >
-            Back
-          </Button>
-          <Button
-            id="button-stylings"
-            type="submit"
-            variant="contained"
-            color="primary" 
-          >
-            Submit
-          </Button>
-          <Button
-            id="button-stylings"
-            type="submit"
-            variant="contained"
-            color="primary" 
-          >
-            Submit2
-          </Button>
-        </div>
-      </form>
-    </>
-  );
-}
+    <div className="random-form">
+      <div className="form-group">
+        <label className="label" htmlFor="priority1">
+          Priority 1:
+        </label>
+        <input
+          type="text"
+          id="priority1"
+          className="input"
+          value={priority1}
+          onChange={handlePriority1Change}
+        />
+      </div>
 
-export default RoomForm;
+      <div className="form-group">
+        <label className="label" htmlFor="priority2">
+          Priority 2:
+        </label>
+        <input
+          type="text"
+          className="input"
+          id="priority2"
+          value={priority2}
+          onChange={handlePriority2Change}
+        />
+      </div>
+
+      <div className="form-group">
+        <label className="label" htmlFor="priority3">
+          Priority 3:
+        </label>
+        <input
+          className="input"
+          type="text"
+          id="priority3"
+          value={priority3}
+          onChange={handlePriority3Change}
+        />
+      </div>
+
+      <div className="button-group">
+        <button onClick={handleJoinRandom}>Join Random</button>
+        <button onClick={handleSearchRooms}>Search Rooms</button>
+        <button className="close-button" onClick={handleClick3}>
+          X
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default RandomForm;
