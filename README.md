@@ -16,6 +16,16 @@ Guests who want to join these Public rooms can just click on the available rooms
 
 Archangel also has a feature of Private rooms that can be created by hosts who want to keep their meetings private and only accessible to guests who hold a particular NFT (ERC721 or ERC1155). For creating these rooms hosts have to specify the field of interest of these rooms and also the Token Type, Token chain and the Token Contract Address that will be used to segregate the incoming guests To join these rooms guests will be required to have the set Token in their wallets and they will be good to go and join the rooms.
 
+## How it is made 
+Archangel is a web3 video chatting application that allows its users with multiple video chatting features like Public Rooms, Private Rooms, and Interest-based Private rooms. Hosts are required to set the interest and the maximum capacity of the room while creating a public and also the chain and Token Type and address while creating a private one.
+
+Public rooms Data is stored in the MongoDB database from here it is fetched whenever required.
+
+For making a private room we have made use of the Huddle Token Gated API which requires a title, chain, token type and contract address and gives room id as a response. A room is created using the create Room API and the user is redirected to the lobby provided by Huddle01 @huddle01/react package.  
+
+Public rooms are created by the meeting SDK rooms API provided by Huddle and the data is stored in the MongoDB database. Once the is the room is created the host of the meeting is redirected to the lobby using the joinLooby Hokk in the @huddle01/react package. 
+
+If a person wants to join a Public room of interest then he/she has to first type the interest that he/she seeks. This interest is matched with all the interests of the available public rooms in the database and the guest is given options to join according to the priority of interests. 
 
 
 
