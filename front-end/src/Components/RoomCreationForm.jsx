@@ -66,7 +66,7 @@ function RoomForm({ onButtonClick, setEthAddress }) {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+    event.preventDefault();   
     console.log("Form submitted!" + setEthAddress);
 
     if (isPublic) {
@@ -82,26 +82,23 @@ function RoomForm({ onButtonClick, setEthAddress }) {
           const meetingLink = response.data.meetingLink;
           console.log("Meeting Link:", meetingLink);
           // Redirect the user to the meeting link
-          window.location.href = meetingLink;
+          window.location.href = meetingLink;  
         } else {
           console.log("Failed to join public room");
         }
       } catch (error) {
         console.error("Error joining public room:", error);
-      }
+      }      
     } else {
-      
-      try {
+
+      try {    
+
         const response = await axios.get("http://localhost:3001/joininPrivateRoom", {
-          params: {
-            roomId: roomName,
-            capacity,
+            roomName,
             chainType,
             token,
             contractAddress,
-            ethAddress: setEthAddress,
-          },
-        });
+          });
 
         if (response.status === 200) {
           console.log("Joined private room:", roomName);
