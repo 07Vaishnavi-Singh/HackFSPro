@@ -8,6 +8,7 @@ import "../styles/App.css";
 
 function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
   const [showForm, setShowForm] = useState(false);
+  const [showForm2, setShowForm2] = useState(false);
   const featuresRef = useRef(null);
   const aboutRef = useRef(null);
 
@@ -21,6 +22,9 @@ function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
 
   const handleOpen = () => {
     setShowForm(true);
+  };
+  const handleOpen2 = () => {
+    setShowForm2(true);
   };
 
   const handleClose = () => {
@@ -39,7 +43,7 @@ function RoomCreation({ isMetamaskConnected ,setEthAddress}) {
         {showForm ? (
           <RoomForm onButtonClick={handleClose} setEthAddress={setEthAddress}/>
         ) : (
-          <AvailableRooms onButtonClick1={handleOpen} />
+          <AvailableRooms onButtonClick1={handleOpen}  onButtonClick2={handleOpen2}/>
         )}
       </div>
       <div id="dashboard-container-2" >

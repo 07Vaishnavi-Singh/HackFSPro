@@ -3,6 +3,13 @@
   background: none !important;
  
 }
+
+#available-rooms-main{
+  height: auto;
+  background: none !important;
+  display: flex;
+ 
+}
 .close-icon {
   color: #ffffff;
 }
@@ -103,4 +110,22 @@
 #interest-container{
   background: none !important;
   
+}
+#room-container-main{
+  display: flex;
+  background: none !important;
+  justify-content: center;
+}
+
+.navigate-buttons{
+  background:none !important;
+  color: white;
+  font-family: Orbitron !important;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 55px;
+  letter-spacing: 0.14em;
+  border: none;
+  color: #ffffff;
+
 }

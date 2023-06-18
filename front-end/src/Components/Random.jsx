@@ -255,6 +255,14 @@ function RoomForm({ onButtonClick, setEthAddress }) {
           >
             Submit
           </Button>
+          <Button
+            id="button-stylings"
+            type="submit"
+            variant="contained"
+            color="primary" 
+          >
+            Submit2
+          </Button>
         </div>
       </form>
     </>

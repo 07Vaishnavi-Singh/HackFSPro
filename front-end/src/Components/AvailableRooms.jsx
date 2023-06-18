@@ -4,17 +4,20 @@ import useMediaQuery from "@material-ui/core/useMediaQuery";
 import SwipeableViews from "react-swipeable-views";
 import SearchIcon from "@material-ui/icons/Search";
 import CloseIcon from "@material-ui/icons/Close";
+import KeyboardArrowLeftIcon from "@material-ui/icons/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import "../styles/AvailableRooms.css";
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-function AvailableRooms({ onButtonClick1 }) {
+function AvailableRooms({ onButtonClick1 , onButtonClick2}) {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [showSearch, setShowSearch] = useState(false);
   const [searchInput, setSearchInput] = useState("");
   const [filteredRooms, setFilteredRooms] = useState([]);
   const [rooms, setRooms] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     // Initialize Firebase
@@ -72,8 +75,19 @@ function AvailableRooms({ onButtonClick1 }) {
     setRooms(updatedRooms);
   };
 
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
   const renderRooms = () => {
-    let roomsToRender = rooms;
+    const roomLimit = 6;
+    const startIndex = currentPage * roomLimit;
+    const endIndex = startIndex + roomLimit;
+    let roomsToRender = rooms.slice(startIndex, endIndex);
 
     if (searchInput.trim() !== "") {
       roomsToRender = filteredRooms.length > 0 ? filteredRooms : [];
@@ -88,8 +102,8 @@ function AvailableRooms({ onButtonClick1 }) {
         key={index}
         style={styles.card}
         className={`room ${room.isHovered ? "hovered" : ""}`}
-        onMouseEnter={() => handleCardHover(index)}
-        onMouseLeave={() => handleCardHover(index)}
+        onMouseEnter={() => handleCardHover(startIndex + index)}
+        onMouseLeave={() => handleCardHover(startIndex + index)}
       >
         {room.isHovered ? (
           <>
@@ -103,9 +117,17 @@ function AvailableRooms({ onButtonClick1 }) {
             <h5 id="interest-container">
               {room.interests.map((interest, index) => {
                 if (index !== room.interests.length - 1) {
-                  return <span id="interests" key={index}>{interest}, </span>;
+                  return (
+                    <span id="interests" key={index}>
+                      {interest},{" "}
+                    </span>
+                  );
                 } else {
-                  return <span id="interests" key={index}>{interest}</span>;
+                  return (
+                    <span id="interests" key={index}>
+                      {interest}
+                    </span>
+                  );
                 }
               })}
             </h5>
@@ -156,12 +178,20 @@ function AvailableRooms({ onButtonClick1 }) {
           {renderRooms()}
         </SwipeableViews>
       ) : (
-        <div id="room-container" style={styles.gridContainer}>
-          {renderRooms()}
+        <div id="room-container-main">
+          {currentPage > 0 && (
+            <button className="navigate-buttons" onClick={handlePreviousPage}>{"<"}</button>
+          )}
+          <div id="room-container" style={styles.gridContainer}>
+            {renderRooms()}
+          </div>
+          {rooms.length > (currentPage + 1) * 6 && (
+            <button className="navigate-buttons" onClick={handleNextPage}>{">"}</button>
+          )}
         </div>
       )}
       <div id="button-container">
-        <button id="refresh">Refresh</button>
+        <button id="refresh" onClick={onButtonClick2}>Refresh</button>
         <button id="create-new" onClick={onButtonClick1}>
           Create new
         </button>
